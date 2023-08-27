@@ -48,7 +48,12 @@
 #define LED_NUM_LOCK_PIN    A6
 #define LED_CAPS_LOCK_PIN   A7
 #define LED_SCROLL_LOCK_PIN D5
-//#define LED_WIN_LOCK_PIN   D6
 #define LED_PIN_ON_STATE    1
+
+// This keyboard has a special fourth LED, that by default indicates
+// if the Windows key has been disabled.  This state is toggled by
+// pressing Fn+Win in the stock firmware.  The default keymap also
+// implements this.
+#define LED_WIN_LOCK_PIN   D6
 
 #include "config_led.h"
