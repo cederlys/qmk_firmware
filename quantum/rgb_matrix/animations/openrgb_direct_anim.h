@@ -2,6 +2,8 @@
 RGB_MATRIX_EFFECT(OPENRGB_DIRECT)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+#include "openrgb.h"
+
 bool OPENRGB_DIRECT(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
