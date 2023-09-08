@@ -23,6 +23,7 @@
 #include "openrgb.h"
 #include "raw_hid.h"
 #include "string.h"
+#include "keymap_introspection.h"
 #include <color.h>
 
 #if !defined(OPENRGB_DIRECT_MODE_STARTUP_RED)
@@ -315,7 +316,7 @@ void openrgb_get_led_info(uint8_t *data) {
         if (col >= MATRIX_COLS || row >= MATRIX_ROWS) {
             raw_hid_buffer[data_idx + 7] = KC_NO;
         } else {
-            raw_hid_buffer[data_idx + 7] = pgm_read_byte(&keymaps[0][row][col]);
+            raw_hid_buffer[data_idx + 7] = keycode_at_keymap_location_raw(0, row, col) & 0xff;
         }
     }
 }
