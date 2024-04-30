@@ -9,6 +9,8 @@ and an RGB matrix.
 * Hardware Supported: Svive Triton Mini, also known as Svive Tritium Mini or Svive Triton 60%
 * Hardware Availability: [Svive official website](https://www.svive.gg/products/triton-rgb-mini-black/?v=3)
 
+Warning: there are at least two revisions of this keyboard.  You can identify them by removing the space keycap.  This code works on the "2020/12/19" revision; I've received a report that it fails on the "2021/07/08" revision.
+
 Make example for this keyboard (after setting up your build environment):
 
     make svive/triton_mini:default
