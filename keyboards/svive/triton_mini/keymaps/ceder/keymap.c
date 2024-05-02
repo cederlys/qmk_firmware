@@ -25,21 +25,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,
         KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,
-        KC_LCTL, MO(_FN), KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI,  KC_APP,  TG(_FX)
+        KC_LCTL, MO(_FN), KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI,  KC_APP, TG(_FX)
     ),
     [_FX] = LAYOUT_60_iso(
-      _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   _______, _______, KC_PGUP,
-      _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, KC_PGDN, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, KC_P0,   _______, _______, KC_UP,            _______,
+      _______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6,    _______, _______, KC_PGUP,
+      _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,    _______, _______, KC_PGDN, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_0,    _______, _______, KC_UP,            _______,
       _______, _______, _______,                            _______,                            KC_LEFT, KC_DOWN, KC_RGHT, _______
     ),
     [_FN] = LAYOUT_60_iso(
-      QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLU, KC_VOLD, KC_F11,  KC_F12,  KC_DEL,
-      _______, _______, _______, KC_END,  _______, _______, _______, _______, KC_INS,  _______, KC_PAUS, _______, _______,
-      _______, _______, _______, _______, _______, _______, KC_HOME, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-      _______, _______, _______,                            _______,                            _______, _______, _______, _______
+      QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_VOLU, KC_VOLD, _______, _______,  KC_DEL,
+      _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, _______, KC_INS,  _______, KC_PAUS, LSA(KC_UP),   KC_PGUP,
+      _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_HOME, KC_END,  _______, _______, _______, LSA(KC_DOWN), KC_PGDN, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,            _______,
+      _______, _______, _______,                            _______,                            KC_LEFT, KC_DOWN, KC_RGHT, _______
     ),
 };
 
@@ -52,6 +52,17 @@ static int offset = 0;
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
   offset = (g_rgb_timer / 12) % 64;
 
+  if (IS_LAYER_ON(_FN) || IS_LAYER_ON(_FX))
+    {
+      CEDER_SET(26, 0, 255, 255); /* KC_PGUP */
+      CEDER_SET(39, 0, 255, 255); /* KC_PGDN */
+
+      CEDER_SET(52, 255, 0, 0);	/* KC_UP */
+      CEDER_SET(58, 255, 0, 0);	/* KC_LEFT */
+      CEDER_SET(59, 255, 0, 0);	/* KC_DOWN */
+      CEDER_SET(60, 255, 0, 0);	/* KC_RGHT */
+    }
+
   if (IS_LAYER_ON(_FN))
     {
       CEDER_SET(0, 255, 0, 0);	   /* QK_BOOT */
@@ -59,6 +70,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
       CEDER_SET(2, 128, 128, 128); /* KC_F2 */
       CEDER_SET(3, 128, 128, 128); /* KC_F3 */
       CEDER_SET(4, 128, 128, 128); /* KC_F4 */
+      CEDER_SET(15, 128, 128, 128); /* KC_F5 */
+      CEDER_SET(16, 128, 128, 128); /* KC_F6 */
+      CEDER_SET(17, 128, 128, 128); /* KC_F7 */
+      CEDER_SET(18, 128, 128, 128); /* KC_F8 */
+      CEDER_SET(28, 128, 128, 128); /* KC_F9 */
+      CEDER_SET(29, 128, 128, 128); /* KC_F10 */
+      CEDER_SET(30, 128, 128, 128); /* KC_F11 */
+      CEDER_SET(31, 128, 128, 128); /* KC_F12 */
+
+      CEDER_SET(25, 0, 128, 128); /* LSA(KC_PGUP) */
+      CEDER_SET(38, 0, 128, 128); /* LSA(KC_PGDN) */
 
       CEDER_SET(5, 96, 96, 0);	/* KC_MPRV */
       CEDER_SET(6, 96, 96, 0);	/* KC_MNXT */
@@ -68,15 +90,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
       CEDER_SET(9, 255, 0, 0);	/* KC_VOLU */
       CEDER_SET(10, 0, 255, 0);	/* KC_VOLD */
 
-      CEDER_SET(11, 128, 128, 128); /* KC_F11 */
-      CEDER_SET(12, 128, 128, 128); /* KC_F11 */
       CEDER_SET(13, 255, 128, 128); /* KC_DEL */
 
-      CEDER_SET(17, 255, 128, 128); /* KC_END */
       CEDER_SET(22, 255, 128, 128); /* KC_INS */
       CEDER_SET(24, 255, 0, 0);	    /* KC_PAUS */
 
       CEDER_SET(33, 255, 128, 128); /* KC_HOME */
+      CEDER_SET(34, 255, 128, 128); /* KC_END */
     }
   else if (IS_LAYER_ON(_FX))
     {
@@ -87,24 +107,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
       CEDER_SET(8, 200, 200, 200);  /* KC_P8 */
       CEDER_SET(9, 200, 200, 200);  /* KC_P9 */
       CEDER_SET(22, 200, 200, 200); /* KC_P5 */
+      CEDER_SET(34, 200, 200, 200); /* KC_P1 */
     }
 
   if (IS_LAYER_ON(_FX))
     {
       CEDER_SET(21, 200, 200, 200); /* KC_P4 */
       CEDER_SET(23, 200, 200, 200); /* KC_P6 */
-      CEDER_SET(34, 200, 200, 200); /* KC_P1 */
       CEDER_SET(35, 200, 200, 200); /* KC_P2 */
       CEDER_SET(36, 200, 200, 200); /* KC_P3 */
       CEDER_SET(49, 200, 200, 200); /* KC_P0 */
-
-      CEDER_SET(26, 0, 255, 255); /* KC_PGUP */
-      CEDER_SET(39, 0, 255, 255); /* KC_PGDN */
-
-      CEDER_SET(52, 255, 0, 0);	/* KC_UP */
-      CEDER_SET(58, 255, 0, 0);	/* KC_LEFT */
-      CEDER_SET(59, 255, 0, 0);	/* KC_DOWN */
-      CEDER_SET(60, 255, 0, 0);	/* KC_RGHT */
     }
 
   return false;
